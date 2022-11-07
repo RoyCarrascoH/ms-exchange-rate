@@ -61,4 +61,12 @@ public class ExchangeRateController {
     public Mono<ResponseEntity<Void>> deleteExchangeRate(@PathVariable("idExchangeRate") String idExchangeRate) {
         return service.delete(idExchangeRate).then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)));
     }
+
+    @GetMapping("/currencyType/{currencyType}")
+    public Mono<ResponseEntity<ExchangeRate>> getExchangeRateByCurrencyType(@PathVariable("currencyType") String currencyType) {
+        return service.findByCurrencyType(currencyType)
+                .map(c -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+                        .body(c))
+                .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
 }

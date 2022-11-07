@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -20,6 +21,24 @@ public class ExchangeRateRepository {
 
     public Mono<ExchangeRate> findById(String id) {
         return this.reactiveRedisOperations.<String, ExchangeRate>opsForHash().get("exchangeRates", id);
+    }
+
+    public Mono<ExchangeRate> findByCurrencyType(String currencyType) {
+        return Mono.just(currencyType)
+                .flatMap(ct -> this.findAll()
+                        .collectList()
+                        .flatMap(l -> {
+                            Optional<ExchangeRate> cType = l.stream()
+                                    .filter(c -> c.getCurrencyType().getCurrencyType().equals(ct))
+                                    .findFirst();
+                            if (cType.isPresent()) {
+                                return Mono.just(cType.get());
+                            } else {
+                                return Mono.empty();
+                            }
+
+                        })
+                );
     }
 
     public Mono<ExchangeRate> save(ExchangeRate exchangeRate) {

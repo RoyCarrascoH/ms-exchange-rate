@@ -70,4 +70,11 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
                 .switchIfEmpty(Mono.error(new ResourceNotFoundException("Tipo moneda", "Currency", ExchangeRateDto.getCurrency())))
                 .flatMap(c -> Mono.empty());
     }
+
+    @Override
+    public Mono<ExchangeRate> findByCurrencyType(String currencyType) {
+        return Mono.just(currencyType)
+                .flatMap(exchangeRateRepository::findByCurrencyType)
+                .switchIfEmpty(Mono.error(new ResourceNotFoundException("Exchange Rate", "currencyType", currencyType)));
+    }
 }
