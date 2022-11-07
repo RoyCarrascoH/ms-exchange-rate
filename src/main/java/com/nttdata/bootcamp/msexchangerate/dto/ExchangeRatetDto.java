@@ -1,14 +1,21 @@
 package com.nttdata.bootcamp.msexchangerate.dto;
 
+import org.springframework.data.annotation.Id;
 import com.nttdata.bootcamp.msexchangerate.model.CurrencyType;
 import com.nttdata.bootcamp.msexchangerate.model.ExchangeRate;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.annotation.Id;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
+/**
+ * Class ExchangeRatetDto.
+ * ExchangeRate microservice class ExchangeRatetDto.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,7 +31,7 @@ public class ExchangeRatetDto {
     private String currency;
     private CurrencyType currencyType;
 
-    public Mono<ExchangeRate> MapperToExchangeRate() {
+    public Mono<ExchangeRate> mapperToExchangeRate() {
         log.info("ini MapperToExchangeRate-------: ");
 
 

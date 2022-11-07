@@ -1,12 +1,15 @@
 package com.nttdata.bootcamp.msexchangerate.model;
 
-import lombok.Builder;
-import lombok.ToString;
-import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import lombok.ToString;
 
+/**
+ * Class currencyType.
+ * ExchangeRate microservice class currencyType.
+ */
 @Data
 @Builder
 @ToString

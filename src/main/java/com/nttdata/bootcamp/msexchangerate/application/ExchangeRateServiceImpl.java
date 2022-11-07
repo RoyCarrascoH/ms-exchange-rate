@@ -36,7 +36,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         log.info("----save-------ExchangeRate : " + exchangeRateDto.toString());
         return Mono.just(exchangeRateDto)
                 .flatMap(mwd -> validateCurrencyType(mwd).then(Mono.just(mwd)))
-                .flatMap(mwd -> mwd.MapperToExchangeRate())
+                .flatMap(mwd -> mwd.mapperToExchangeRate())
                 .flatMap(exchangeRateRepository::save);
     }
 
@@ -45,7 +45,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         log.info("----update-------exchangeRateDto -- ExchangeRate: " + exchangeRateDto.toString() + " -- " + idExchangeRate);
         return Mono.just(exchangeRateDto)
                 .flatMap(mwd -> validateCurrencyType(mwd).then(Mono.just(mwd)))
-                .flatMap(mwd -> mwd.MapperToExchangeRate())
+                .flatMap(mwd -> mwd.mapperToExchangeRate())
                 .flatMap(mwd -> exchangeRateRepository.findById(idExchangeRate)
                         .switchIfEmpty(Mono.error(new ResourceNotFoundException("Tipo de cambio", "idExchangeRate", idExchangeRate)))
                         .flatMap(x -> {

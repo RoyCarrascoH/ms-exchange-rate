@@ -5,7 +5,12 @@ import com.nttdata.bootcamp.msexchangerate.model.ExchangeRate;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+/**
+ * Class ExchangeRateService.
+ * ExchangeRate microservice class ExchangeRateService.
+ */
 public interface ExchangeRateService {
+
     public Flux<ExchangeRate> findAll();
 
     public Mono<ExchangeRate> findById(String idExchangeRate);

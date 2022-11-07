@@ -27,7 +27,7 @@ public class CurrencyTypeRepository {
     public Mono<CurrencyType> findCurrencyTypeByType(String currencyType) {
         log.info("Inicio----findCurrencyTypeByType-------currencyType: " + currencyType);
         WebClientConfig webconfig = new WebClientConfig();
-        return webconfig.setUriData("http://" + propertyHostMsCurrencyType + ":8091")
+        return webconfig.setUriData("http://" + propertyHostMsCurrencyType + ":8089")
                 .flatMap(d -> webconfig.getWebclient().get().uri("/api/currencytype/type/" + currencyType).retrieve()
                         .onStatus(HttpStatus::is4xxClientError, clientResponse -> Mono.error(new Exception("Error 400")))
                         .onStatus(HttpStatus::is5xxServerError, clientResponse -> Mono.error(new Exception("Error 500")))

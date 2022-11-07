@@ -52,7 +52,7 @@ public class ExchangeRateRepository {
 
     public Mono<Void> delete(ExchangeRate currencyType) {
         return this.reactiveRedisOperations.<String, ExchangeRate>opsForHash()
-                .remove("currencyTypes", currencyType.getId())
+                .remove("exchangeRates", currencyType.getId())
                 .flatMap(p -> Mono.just(currencyType)).then();
     }
 

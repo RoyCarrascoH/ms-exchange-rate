@@ -1,12 +1,10 @@
 package com.nttdata.bootcamp.msexchangerate.controller;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Map;
 import java.util.Date;
 import java.util.HashMap;
 import javax.validation.Valid;
-
 import com.nttdata.bootcamp.msexchangerate.dto.ExchangeRatetDto;
 import com.nttdata.bootcamp.msexchangerate.model.ExchangeRate;
 import lombok.extern.slf4j.Slf4j;
@@ -32,8 +30,8 @@ public class ExchangeRateController {
     }
 
     @GetMapping("/{idExchangeRate}")
-    public Mono<ResponseEntity<ExchangeRate>> getExchangeRateDetails(@PathVariable("idExchangeRate") String idClient) {
-        return service.findById(idClient).map(c -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(c))
+    public Mono<ResponseEntity<ExchangeRate>> getExchangeRateDetails(@PathVariable("idExchangeRate") String idExchangeRate) {
+        return service.findById(idExchangeRate).map(c -> ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(c))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
@@ -41,10 +39,10 @@ public class ExchangeRateController {
     public Mono<ResponseEntity<Map<String, Object>>> saveExchangeRate(@Valid @RequestBody Mono<ExchangeRatetDto> ExchangeRateDto) {
         Map<String, Object> request = new HashMap<>();
         return ExchangeRateDto.flatMap(bnkAcc -> service.save(bnkAcc).map(baSv -> {
-                    request.put("ExchangeRatet", baSv);
+                    request.put("ExchangeRate", baSv);
                     request.put("message", "Tipo de cambio guardado con exito");
                     request.put("timestamp", new Date());
-                    return ResponseEntity.created(URI.create("/api/bankaccounts/".concat(baSv.getId())))
+                    return ResponseEntity.created(URI.create("/api/exchangerate/".concat(baSv.getId())))
                             .contentType(MediaType.APPLICATION_JSON).body(request);
                 })
         );

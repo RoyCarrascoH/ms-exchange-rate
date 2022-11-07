@@ -1,12 +1,16 @@
 package com.nttdata.bootcamp.msexchangerate.util;
 
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import lombok.AllArgsConstructor;
 
+/**
+ * Class Constants.
+ * ExchangeRate microservice class Constants.
+ */
 @AllArgsConstructor
 @Component
 public class Constants {
